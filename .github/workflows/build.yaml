@@ -56,7 +56,7 @@ jobs:
         run: trunk --version
 
       - name: Build
-        run: trunk build --release --public-url leptos-charts
+        run: trunk build --release
 #        ${{ github.event.repository.name }}
 
       - name: Deploy
