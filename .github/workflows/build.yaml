@@ -56,8 +56,7 @@ jobs:
         run: trunk --version
 
       - name: Build
-        run: trunk build --release
-#        ${{ github.event.repository.name }}
+        run: trunk build --release --public-url /${{ github.event.repository.name }}
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
