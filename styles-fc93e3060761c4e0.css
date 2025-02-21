@@ -3,18 +3,24 @@ body {
 }
 
 .app {
-    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.app h1 {
+h1 {
     font-family: sans-serif;
+    font-size: 24px;
 }
 
 .symbols-wrapper {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
     margin-bottom: 20px;
+}
+
+.chart {
+    width: 100%;
+    overflow-x: auto;
 }
