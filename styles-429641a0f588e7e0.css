@@ -23,4 +23,12 @@ h1 {
 .chart {
     width: 100%;
     overflow-x: auto;
+    text-align: center;
+}
+
+.selected {
+    background-color: aliceblue;
+    border: 1px solid #555;
+    border-radius: 2px;
+    font-weight: bold;
 }
