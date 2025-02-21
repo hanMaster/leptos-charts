@@ -51,7 +51,7 @@ fn App() -> impl IntoView {
                 <button on:click = move |_| *set_interval.write() = "W" >Week</button>
                 <button on:click = move |_| *set_interval.write() = "M" >Month</button>
             </div>
-            <div inner_html = async_result />
+            <div class="chart" inner_html = async_result />
         </div>
     }
 }
