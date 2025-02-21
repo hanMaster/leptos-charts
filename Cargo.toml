@@ -1,0 +1,20 @@
+[package]
+name = "leptos-charts"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# -- crypto
+hmac = "0.12"
+sha2 = "0.10"
+# -- charts gen
+charts-rs = "0.3.19"
+# -- http request
+reqwest = { version = "0.12", features = ["json"] }
+# -- serialization
+serde = { version = "1", features = ["derive"] }
+# -- time
+chrono = { version = "0.4", features = ["wasmbind"]}
+# -- Leptos
+console_error_panic_hook = "0.1.7"
+leptos = { version = "0.7.7", features = ["csr"] }

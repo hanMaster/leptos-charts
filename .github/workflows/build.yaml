@@ -1,0 +1,65 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ['main']
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ inputs.toolchain }}
+      - name: Add wasm32-unknown-unknown
+        run: rustup target add wasm32-unknown-unknown
+      - name: Setup cargo-make
+        uses: davidB/rust-cargo-make@v1
+      - name: Cargo generate-lockfile
+        run: cargo generate-lockfile
+      - uses: Swatinem/rust-cache@v2
+      - name: Install binstall
+        uses: cargo-bins/cargo-binstall@main
+      - name: Install wasm-bindgen
+        run: cargo binstall wasm-bindgen-cli --no-confirm
+      - name: Install cargo-leptos
+        run: cargo binstall cargo-leptos --locked --no-confirm
+      - name: Install Trunk
+        uses: jetli/trunk-action@v0.5.0
+        with:
+          version: "latest"
+      - name: Print Trunk Version
+        run: trunk --version
+
+      - name: Build
+        run: trunk build --release
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ./dist
