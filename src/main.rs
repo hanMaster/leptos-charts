@@ -33,25 +33,90 @@ fn App() -> impl IntoView {
 
     view! {
         <div class="app">
-            <h1> { "Котировки криптовалют" }</h1>
+            <h1>{"Котировки криптовалют"}</h1>
             <div class="symbols-wrapper">
-                <button on:click = move |_| *set_symbol.write() = "BTCUSDT" >BTC/USDT</button>
-                <button on:click = move |_| *set_symbol.write() = "ETHUSDT" >ETH/USDT</button>
-                <button on:click = move |_| *set_symbol.write() = "SOLUSDT" >SOL/USDT</button>
-                <button on:click = move |_| *set_symbol.write() = "TRUMPUSDT" >TRUMP/USDT</button>
+                <button
+                    on:click=move |_| *set_symbol.write() = "BTCUSDT"
+                    class:selected=move || *symbol.read() == "BTCUSDT"
+                >
+                    BTC/USDT
+                </button>
+                <button
+                    on:click=move |_| *set_symbol.write() = "ETHUSDT"
+                    class:selected=move || *symbol.read() == "ETHUSDT"
+                >
+                    ETH/USDT
+                </button>
+                <button
+                    on:click=move |_| *set_symbol.write() = "SOLUSDT"
+                    class:selected=move || *symbol.read() == "SOLUSDT"
+                >
+                    SOL/USDT
+                </button>
+                <button
+                    on:click=move |_| *set_symbol.write() = "TRUMPUSDT"
+                    class:selected=move || *symbol.read() == "TRUMPUSDT"
+                >
+                    TRUMP/USDT
+                </button>
             </div>
             <div class="symbols-wrapper">
-                <button on:click = move |_| *set_interval.write() = "1" >1m</button>
-                <button on:click = move |_| *set_interval.write() = "5" >5m</button>
-                <button on:click = move |_| *set_interval.write() = "15" >15m</button>
-                <button on:click = move |_| *set_interval.write() = "30" >30m</button>
-                <button on:click = move |_| *set_interval.write() = "60" >1h</button>
-                <button on:click = move |_| *set_interval.write() = "240" >4h</button>
-                <button on:click = move |_| *set_interval.write() = "D" >Day</button>
-                <button on:click = move |_| *set_interval.write() = "W" >Week</button>
-                <button on:click = move |_| *set_interval.write() = "M" >Month</button>
+                <button
+                    on:click=move |_| *set_interval.write() = "1"
+                    class:selected=move || *interval.read() == "1"
+                >
+                    1m
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "5"
+                    class:selected=move || *interval.read() == "5"
+                >
+                    5m
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "15"
+                    class:selected=move || *interval.read() == "15"
+                >
+                    15m
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "30"
+                    class:selected=move || *interval.read() == "30"
+                >
+                    30m
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "60"
+                    class:selected=move || *interval.read() == "60"
+                >
+                    1h
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "240"
+                    class:selected=move || *interval.read() == "240"
+                >
+                    4h
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "D"
+                    class:selected=move || *interval.read() == "D"
+                >
+                    Day
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "W"
+                    class:selected=move || *interval.read() == "W"
+                >
+                    Week
+                </button>
+                <button
+                    on:click=move |_| *set_interval.write() = "M"
+                    class:selected=move || *interval.read() == "M"
+                >
+                    Month
+                </button>
             </div>
-            <div class="chart" inner_html = async_result />
+            <div class="chart" inner_html=async_result />
         </div>
     }
 }
