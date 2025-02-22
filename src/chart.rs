@@ -43,13 +43,16 @@ pub fn gen_line_svg() -> Result<()> {
     Ok(())
 }
 
-
-pub async fn gen_candlestick_svg(symbol: &str, interval: &str) -> Result<String> {
+pub async fn gen_candlestick_svg(symbol: &str, interval: &str, width: f64) -> Result<String> {
     let d = get_data(symbol, interval, 170).await?;
     let mut chart = CandlestickChart::new_with_theme(d.series_list, d.x_axis_data, "vintage");
 
-    chart.height = 600.00;
-    chart.width = 1200.00;
+    chart.width = if width > 1200.00 {
+        1200.00
+    } else {
+        width as f32 - 30.00
+    };
+    chart.height = chart.width * 0.7;
     chart.legend_show = Some(false);
     chart.title_text = symbol.to_string();
     chart.sub_title_text = format!("Interval: {}", d.interval_label);

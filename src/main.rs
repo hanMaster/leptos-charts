@@ -1,5 +1,6 @@
 use leptos_charts::chart::gen_candlestick_svg;
 use leptos::prelude::*;
+use leptos_use::{use_window_size, UseWindowSizeReturn};
 use leptos_charts::error::Error;
 
 fn main() {
@@ -7,8 +8,8 @@ fn main() {
     mount_to_body(App);
 }
 
-async fn get_chart(symbol: &str, interval: &str) -> String {
-    gen_candlestick_svg(symbol, interval)
+async fn get_chart(symbol: &str, interval: &str, width: f64) -> String {
+    gen_candlestick_svg(symbol, interval, width)
         .await
         .unwrap_or_else(|e| match e {
             Error::Request(msg) => msg,
@@ -18,11 +19,11 @@ async fn get_chart(symbol: &str, interval: &str) -> String {
 
 #[component]
 fn App() -> impl IntoView {
-    let (symbol, set_symbol) = signal("ETHUSDT");
-    let (interval, set_interval) = signal("240");
+    let (symbol, set_symbol) = signal("BTCUSDT");
+    let (interval, set_interval) = signal("D");
 
-    let chart_resource = LocalResource::new(move || get_chart(*symbol.read(), *interval.read()));
-
+    let UseWindowSizeReturn { width, height: _ } = use_window_size();
+    let chart_resource = LocalResource::new(move || get_chart(*symbol.read(), *interval.read(), *width.read()));
     let async_result = move || {
         chart_resource
             .get()
