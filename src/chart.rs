@@ -52,7 +52,7 @@ pub async fn gen_candlestick_svg(symbol: &str, interval: &str, width: f64) -> Re
     } else {
         width as f32 - 30.00
     };
-    chart.height = chart.width * 0.7;
+    chart.height = chart.width * 0.6;
     chart.legend_show = Some(false);
     chart.title_text = symbol.to_string();
     chart.sub_title_text = format!("Interval: {}", d.interval_label);
